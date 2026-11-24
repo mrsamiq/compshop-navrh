@@ -1,0 +1,192 @@
+(function () {
+    var menu = document.getElementById('menu');
+    var menuTlacidlo = document.querySelector('.menu-tlacidlo');
+    var rozbal = document.querySelectorAll('.menu-rozbal');
+
+    var zavriSkupiny = function (okrem) {
+        Array.prototype.forEach.call(rozbal, function (tlacidlo) {
+            if (tlacidlo !== okrem) {
+                tlacidlo.setAttribute('aria-expanded', 'false');
+                tlacidlo.parentNode.classList.remove('je-otvorene');
+            }
+        });
+    };
+
+    Array.prototype.forEach.call(rozbal, function (tlacidlo) {
+        tlacidlo.addEventListener('click', function () {
+            var otvorene = tlacidlo.parentNode.classList.toggle('je-otvorene');
+            tlacidlo.setAttribute('aria-expanded', otvorene ? 'true' : 'false');
+            zavriSkupiny(tlacidlo);
+        });
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!e.target.closest('.menu-skupina')) {
+            zavriSkupiny(null);
+        }
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            var otvorena = document.querySelector('.menu-skupina.je-otvorene .menu-rozbal');
+            zavriSkupiny(null);
+            if (otvorena) { otvorena.focus(); }
+        }
+    });
+
+    if (menu && menuTlacidlo) {
+        menuTlacidlo.addEventListener('click', function () {
+            var otvorene = menu.classList.toggle('je-otvorene');
+            menuTlacidlo.setAttribute('aria-expanded', otvorene ? 'true' : 'false');
+        });
+
+        menu.addEventListener('click', function (e) {
+            if (e.target.tagName === 'A') {
+                menu.classList.remove('je-otvorene');
+                menuTlacidlo.setAttribute('aria-expanded', 'false');
+                zavriSkupiny(null);
+            }
+        });
+    }
+
+    var zapisNahradne = function (text) {
+        return new Promise(function (hotovo, chyba) {
+            var pole = document.createElement('textarea');
+            pole.value = text;
+            pole.setAttribute('readonly', '');
+            pole.style.position = 'fixed';
+            pole.style.opacity = '0';
+            document.body.appendChild(pole);
+            pole.select();
+            var ok = document.execCommand('copy');
+            document.body.removeChild(pole);
+            if (ok) { hotovo(); } else { chyba(); }
+        });
+    };
+
+    var zapisDoSchranky = function (text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text).catch(function () {
+                return zapisNahradne(text);
+            });
+        }
+        return zapisNahradne(text);
+    };
+
+    Array.prototype.forEach.call(document.querySelectorAll('[data-kopirovat]'), function (tlacidlo) {
+        var casovac = null;
+        tlacidlo.addEventListener('click', function () {
+            zapisDoSchranky(tlacidlo.getAttribute('data-kopirovat')).then(function () {
+                tlacidlo.classList.add('je-skopirovane');
+                var text = tlacidlo.querySelector('span:not(.kopirovat-ok)');
+                if (text && !text.hasAttribute('data-povodny')) {
+                    text.setAttribute('data-povodny', text.textContent);
+                }
+                if (text) { text.textContent = 'Skopírované'; }
+                clearTimeout(casovac);
+                casovac = setTimeout(function () {
+                    tlacidlo.classList.remove('je-skopirovane');
+                    if (text) { text.textContent = text.getAttribute('data-povodny'); }
+                }, 1600);
+            });
+        });
+    });
+
+    var naVrch = document.querySelector('.na-vrch');
+    if (naVrch) {
+        var ukaz = function () {
+            var videt = window.pageYOffset > 600;
+            naVrch.classList.toggle('je-videt', videt);
+            naVrch.tabIndex = videt ? 0 : -1;
+        };
+
+        naVrch.addEventListener('click', function () {
+            var pokojne = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            window.scrollTo({ top: 0, behavior: pokojne ? 'auto' : 'smooth' });
+        });
+
+        window.addEventListener('scroll', ukaz, { passive: true });
+        ukaz();
+    }
+
+    var pokrytie = document.getElementById('pokrytie');
+    var mapa = pokrytie ? pokrytie.querySelector('.mapa') : null;
+    if (mapa) {
+        var spat = pokrytie.querySelector('.mapa-spat');
+        var oblasti = pokrytie.querySelectorAll('.mapa-oblast');
+        var zoznamy = pokrytie.querySelectorAll('.pokrytie-obce');
+        var obce = pokrytie.querySelectorAll('[data-obec]');
+        var celaMapa = mapa.getAttribute('viewBox').split(' ').map(Number);
+        var aktualna = celaMapa.slice();
+        var animacia = null;
+
+        var posun = function (ciel) {
+            var zaciatok = aktualna.slice();
+            var cas = null;
+            var pokojne = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            cancelAnimationFrame(animacia);
+            var krok = function (teraz) {
+                if (cas === null) { cas = teraz; }
+                var t = pokojne ? 1 : Math.min((teraz - cas) / 700, 1);
+                var e = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                aktualna = zaciatok.map(function (hodnota, i) { return hodnota + (ciel[i] - hodnota) * e; });
+                mapa.setAttribute('viewBox', aktualna.join(' '));
+                if (t < 1) { animacia = requestAnimationFrame(krok); }
+            };
+            animacia = requestAnimationFrame(krok);
+        };
+
+        var priblizit = function (oblast) {
+            if (mapa.classList.contains('je-priblizena')) { return; }
+            var kluc = oblast.getAttribute('data-oblast');
+            mapa.classList.add('je-priblizena');
+            Array.prototype.forEach.call(oblasti, function (ina) {
+                ina.classList.toggle('je-vybrana', ina.getAttribute('data-oblast') === kluc);
+            });
+            posun(oblast.getAttribute('data-vyrez').split(' ').map(Number));
+            spat.hidden = false;
+            Array.prototype.forEach.call(zoznamy, function (zoznam) {
+                zoznam.hidden = zoznam.getAttribute('data-oblast') !== kluc;
+            });
+        };
+
+        var oddialit = function () {
+            mapa.classList.remove('je-priblizena');
+            Array.prototype.forEach.call(oblasti, function (oblast) { oblast.classList.remove('je-vybrana'); });
+            posun(celaMapa);
+            spat.hidden = true;
+            Array.prototype.forEach.call(zoznamy, function (zoznam) { zoznam.hidden = true; });
+        };
+
+        Array.prototype.forEach.call(oblasti, function (oblast) {
+            oblast.addEventListener('click', function () { priblizit(oblast); });
+            oblast.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    priblizit(oblast);
+                }
+            });
+        });
+
+        spat.addEventListener('click', oddialit);
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && mapa.classList.contains('je-priblizena')) { oddialit(); }
+        });
+
+        var zvyrazniObec = function (nazov, zapnut) {
+            Array.prototype.forEach.call(obce, function (prvok) {
+                if (prvok.getAttribute('data-obec') === nazov) {
+                    prvok.classList.toggle('je-zvyraznena', zapnut);
+                }
+            });
+        };
+
+        Array.prototype.forEach.call(obce, function (prvok) {
+            var nazov = prvok.getAttribute('data-obec');
+            prvok.addEventListener('mouseenter', function () { zvyrazniObec(nazov, true); });
+            prvok.addEventListener('mouseleave', function () { zvyrazniObec(nazov, false); });
+            prvok.addEventListener('focus', function () { zvyrazniObec(nazov, true); });
+            prvok.addEventListener('blur', function () { zvyrazniObec(nazov, false); });
+        });
+    }
+}());
