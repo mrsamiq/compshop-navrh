@@ -612,7 +612,7 @@ main::after {
 
 .kontakty {
     display: grid;
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
 }
 
@@ -646,25 +646,27 @@ main::after {
 .kontakt-sms span { font-size: 14px; line-height: 20px; }
 .kontakt-linka .btn { align-self: flex-start; margin-top: 18px; padding: 12px 22px; font-size: 16px; background: #fff; color: var(--zelena-tmava); }
 .kontakt-linka .btn:hover { background: var(--tint-zelena); }
-.kontakt-pobocky { display: grid; gap: 24px; }
 
 .kontakt-pobocka {
-    display: flex;
-    align-items: center;
-    padding: 24px 32px;
-    border-radius: 24px;
+    padding: 32px;
+    border-radius: 28px;
     background: #fff;
     box-shadow: 0 4px 18px rgba(45, 66, 85, 0.08);
 }
 
 .kontakt-udaje { font-size: 15px; line-height: 22px; }
-.sekcia .kontakt-udaje h3 { margin: 0; font-size: 19px; line-height: 24px; }
-.kontakt-udaje p { margin: 2px 0 2px; font-size: 15px; line-height: 22px; color: var(--muted); }
-.kontakt-udaje span { display: block; margin-bottom: 6px; color: var(--muted); }
-.kontakt-spojenie { display: flex; flex-wrap: wrap; gap: 0 16px; }
+.sekcia .kontakt-udaje h3 { margin: 0 0 14px; font-size: 21px; line-height: 26px; }
+.kontakt-udaje p { margin: 0 0 10px; font-size: 15px; line-height: 22px; color: var(--muted); }
+.kontakt-udaje span { display: block; color: var(--muted); }
+.kontakt-spojenie { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
 .kontakt-udaje i { font-style: normal; white-space: nowrap; }
 .kontakt-udaje .ikona { width: 17px; height: 17px; margin-right: 8px; vertical-align: -3px; color: var(--zelena-tmava); }
 .kontakt-spojenie .ikona { margin-right: 6px; }
+
+@media (max-width: 1180px) {
+    .kontakty { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .kontakt-linka { grid-row: span 2; }
+}
 
 .kontakt-udaje a { display: block; font-weight: 700; color: var(--base); text-decoration: none; }
 .kontakt-udaje a:hover { color: var(--zelena-tmava); }
@@ -989,7 +991,6 @@ a.od-cena-suma:hover { text-decoration: underline; }
 }
 
 @media (max-width: 1000px) {
-    .kontakty { grid-template-columns: 1fr; }
     .paticka-stlpce { grid-template-columns: 1fr 1fr; }
     .hero-riadok { flex-direction: column; align-items: flex-start; gap: 6px; }
     .dlazdica { padding: 30px 28px; }
@@ -1040,6 +1041,8 @@ a.od-cena-suma:hover { text-decoration: underline; }
     .vyhoda-ikona { grid-row: span 2; }
     .vyhody strong { margin: 0 0 2px; }
     .kontakt-linka { padding: 28px 24px; border-radius: 22px; }
+    .kontakty { grid-template-columns: 1fr; }
+    .kontakt-linka { grid-row: auto; }
     .kontakt-pobocka { padding: 22px 24px; border-radius: 22px; }
     .paticka-stlpce { grid-template-columns: 1fr; gap: 28px; padding-top: 44px; padding-bottom: 32px; }
     .paticka .paticka-spodok { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
