@@ -490,7 +490,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     .mapa-mena { display: none; }
     .mapa-mena-mobil { display: inline; }
     .mapa-spat, .mapa-spat[hidden] { display: none; }
-    .pokrytie-prepinac { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px; margin-bottom: 12px; padding: 4px; border-radius: 100px; background: #fff; box-shadow: 0 4px 18px rgba(45, 66, 85, 0.08); }
+    .pokrytie-prepinac { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4px; margin-bottom: 24px; padding: 4px; border-radius: 100px; background: #fff; box-shadow: 0 4px 18px rgba(45, 66, 85, 0.08); }
 }
 
 .sekcia h2 {
