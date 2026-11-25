@@ -119,11 +119,17 @@
         var celaMapa = mapa.getAttribute('viewBox').split(' ').map(Number);
         var aktualna = celaMapa.slice();
         var animacia = null;
+        var vybrana = null;
+        var mobil = window.matchMedia('(max-width: 600px)');
+
+        var vyrezOblasti = function (oblast) {
+            return oblast.getAttribute(mobil.matches ? 'data-vyrez-mobil' : 'data-vyrez').split(' ').map(Number);
+        };
 
         var posun = function (ciel) {
             var zaciatok = aktualna.slice();
             var cas = null;
-            var pokojne = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var pokojne = mobil.matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             cancelAnimationFrame(animacia);
             var krok = function (teraz) {
                 if (cas === null) { cas = teraz; }
@@ -145,16 +151,32 @@
             Array.prototype.forEach.call(oblasti, function (ina) {
                 ina.classList.toggle('je-vybrana', ina.getAttribute('data-oblast') === kluc);
             });
-            posun(oblast.getAttribute('data-vyrez').split(' ').map(Number));
+            vybrana = oblast;
+            posun(vyrezOblasti(oblast));
             spat.hidden = false;
             Array.prototype.forEach.call(zoznamy, function (zoznam) {
                 zoznam.hidden = zoznam.getAttribute('data-oblast') !== kluc;
             });
         };
 
+        var zmenaSirky = function () {
+            if (vybrana) {
+                cancelAnimationFrame(animacia);
+                aktualna = vyrezOblasti(vybrana);
+                mapa.setAttribute('viewBox', aktualna.join(' '));
+            }
+        };
+
+        if (mobil.addEventListener) {
+            mobil.addEventListener('change', zmenaSirky);
+        } else {
+            mobil.addListener(zmenaSirky);
+        }
+
         var oddialit = function () {
             mapa.classList.remove('je-priblizena');
             pokrytie.classList.remove('je-priblizene');
+            vybrana = null;
             Array.prototype.forEach.call(oblasti, function (oblast) { oblast.classList.remove('je-vybrana'); });
             posun(celaMapa);
             spat.hidden = true;
@@ -237,9 +259,23 @@
             Array.prototype.forEach.call(mapka.querySelectorAll('.mapa-oblast-mena, .mapa-oblast-stitok'), function (prvok) {
                 prvok.parentNode.removeChild(prvok);
             });
-            Array.prototype.forEach.call(mapka.querySelectorAll('[id], [tabindex]'), function (prvok) {
-                prvok.removeAttribute('id');
+            var pripona = '-' + kluc;
+            Array.prototype.forEach.call(mapka.querySelectorAll('[tabindex]'), function (prvok) {
                 prvok.removeAttribute('tabindex');
+            });
+            Array.prototype.forEach.call(mapka.querySelectorAll('[id]'), function (prvok) {
+                prvok.setAttribute('id', prvok.getAttribute('id') + pripona);
+            });
+            Array.prototype.forEach.call(mapka.querySelectorAll('use'), function (prvok) {
+                prvok.setAttribute('href', prvok.getAttribute('href') + pripona);
+            });
+            Array.prototype.forEach.call(mapka.querySelectorAll('[clip-path], [mask], [fill]'), function (prvok) {
+                ['clip-path', 'mask', 'fill'].forEach(function (nazov) {
+                    var hodnota = prvok.getAttribute(nazov);
+                    if (hodnota && hodnota.indexOf('url(#') === 0) {
+                        prvok.setAttribute(nazov, hodnota.replace(')', pripona + ')'));
+                    }
+                });
             });
             Array.prototype.forEach.call(mapka.querySelectorAll('a'), function (odkaz) {
                 var skupina = document.createElementNS('http://www.w3.org/2000/svg', 'g');

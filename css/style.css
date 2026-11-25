@@ -487,6 +487,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .mapa-stitok { transition: opacity 0.3s; }
 .mapa.je-priblizena .mapa-oblast { cursor: default; }
 .mapa-oblast-mena { pointer-events: none; }
+.mapa-mena-mobil { display: none; }
 .mapa.je-priblizena {
     -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
     -webkit-mask-composite: source-in;
@@ -501,6 +502,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 @media (max-width: 600px) {
     .mapa-mena { display: none; }
+    .mapa-mena-mobil { display: inline; }
     .mapa-spat { padding: 6px 10px; font-size: 13px; }
     .pokrytie-volba { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
     #pokrytie.je-priblizene .pokrytie-volba, #pokrytie:not(.je-priblizene) .pokrytie-mapa { display: none; }
