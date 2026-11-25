@@ -665,8 +665,8 @@ main::after {
 .kontakt-udaje i { font-style: normal; white-space: nowrap; }
 .kontakt-udaje .ikona { width: 17px; height: 17px; margin-right: 8px; vertical-align: -3px; color: var(--zelena-tmava); }
 .kontakt-spojenie .ikona { margin-right: 6px; }
-.kontakt-navigacia { align-self: flex-start; margin-top: auto; }
-.kontakt-navigacia .ikona { width: 18px; height: 18px; color: var(--zelena-tmava); }
+.kontakt-navigacia { align-self: flex-start; margin-top: auto; padding: 11px 20px; font-size: 15px; }
+.kontakt-navigacia .ikona { width: 18px; height: 18px; }
 
 @media (max-width: 1180px) {
     .kontakty { grid-template-columns: repeat(2, minmax(0, 1fr)); }
