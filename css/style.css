@@ -648,6 +648,9 @@ main::after {
 .kontakt-linka .btn:hover { background: var(--tint-zelena); }
 
 .kontakt-pobocka {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
     padding: 32px;
     border-radius: 28px;
     background: #fff;
@@ -662,6 +665,8 @@ main::after {
 .kontakt-udaje i { font-style: normal; white-space: nowrap; }
 .kontakt-udaje .ikona { width: 17px; height: 17px; margin-right: 8px; vertical-align: -3px; color: var(--zelena-tmava); }
 .kontakt-spojenie .ikona { margin-right: 6px; }
+.kontakt-navigacia { align-self: flex-start; margin-top: auto; }
+.kontakt-navigacia .ikona { width: 18px; height: 18px; color: var(--zelena-tmava); }
 
 @media (max-width: 1180px) {
     .kontakty { grid-template-columns: repeat(2, minmax(0, 1fr)); }
