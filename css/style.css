@@ -452,6 +452,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .mapa.je-priblizena .mapa-obec:hover path, .mapa .mapa-obec.je-zvyraznena path, .mapa .mapa-obec:focus-visible path { fill: var(--zelena-tmava); }
 .mapa-meno { fill: var(--base); font-weight: 700; text-anchor: middle; pointer-events: none; }
 .mapa-meno-sused { fill: var(--muted); font-weight: 600; }
+.mapa-meno-pozadie { fill: var(--base); pointer-events: none; }
+.mapa-meno-pozadie + .mapa-meno { fill: #fff; }
 .mapa-kancelaria-bod { fill: var(--base); stroke: #fff; stroke-width: 2; vector-effect: non-scaling-stroke; pointer-events: none; }
 .mapa-susedia, .mapa-mena, .mapa-kancelaria-bod { opacity: 0; transition: opacity 0.3s; }
 .mapa-stitok { transition: opacity 0.3s; }

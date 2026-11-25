@@ -140,6 +140,7 @@
             if (mapa.classList.contains('je-priblizena')) { return; }
             var kluc = oblast.getAttribute('data-oblast');
             mapa.classList.add('je-priblizena');
+            stitkyObci();
             Array.prototype.forEach.call(oblasti, function (ina) {
                 ina.classList.toggle('je-vybrana', ina.getAttribute('data-oblast') === kluc);
             });
@@ -172,6 +173,32 @@
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && mapa.classList.contains('je-priblizena')) { oddialit(); }
         });
+
+        var stitkyObci = function () {
+            Array.prototype.forEach.call(mapa.querySelectorAll('.mapa-meno:not(.mapa-meno-sused)'), function (text) {
+                var box = text.getBBox();
+                if (!box.width) { return; }
+                var velkost = parseFloat(text.getAttribute('font-size'));
+                var stred = parseFloat(text.getAttribute('y')) - velkost * 0.35;
+                var stitok = text.previousElementSibling;
+                if (!stitok || stitok.getAttribute('class') !== 'mapa-meno-pozadie') {
+                    stitok = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    stitok.setAttribute('class', 'mapa-meno-pozadie');
+                    text.parentNode.insertBefore(stitok, text);
+                }
+                stitok.setAttribute('x', box.x - velkost * 0.6);
+                stitok.setAttribute('y', stred - velkost * 0.75);
+                stitok.setAttribute('width', box.width + velkost * 1.2);
+                stitok.setAttribute('height', velkost * 1.5);
+                stitok.setAttribute('rx', velkost * 0.75);
+            });
+        };
+
+        stitkyObci();
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(stitkyObci);
+            document.fonts.addEventListener('loadingdone', stitkyObci);
+        }
 
         var zvyrazniObec = function (nazov, zapnut) {
             Array.prototype.forEach.call(obce, function (prvok) {
