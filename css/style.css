@@ -567,12 +567,11 @@ main::after {
     margin: 0;
     padding: 0;
     list-style: none;
-    background: #fff;
-    border: 1px solid var(--border);
+    background: var(--gray);
     border-radius: 16px;
 }
 
-.subory li + li { border-top: 1px solid var(--border); }
+.subory li + li { border-top: 1px solid #E2E2EC; }
 
 .subory a {
     display: flex;
