@@ -415,6 +415,32 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .mapa-spat .ikona { width: 18px; height: 18px; transform: rotate(180deg); }
 .mapa-spat:hover { border-color: var(--base); }
 .mapa-spat[hidden] { display: none; }
+.mapa-spat-mobil { display: none; }
+
+.pokrytie-volba { display: none; }
+
+.pokrytie-karta {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 8px 14px;
+    border: 0;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 4px 18px rgba(45, 66, 85, 0.08);
+    font: inherit;
+    text-align: left;
+    color: var(--base);
+    cursor: pointer;
+}
+
+.pokrytie-karta-mapa { display: block; overflow: hidden; border-radius: 14px; background: var(--gray); }
+.pokrytie-karta-mapa .mapa { pointer-events: none; }
+.mapa.mapa-mini { -webkit-mask-image: none; mask-image: none; }
+.pokrytie-karta-spodok { display: flex; align-items: flex-end; justify-content: space-between; gap: 6px; padding: 12px 6px 0; }
+.pokrytie-karta-text strong { display: block; font-size: 16px; line-height: 21px; }
+.pokrytie-karta-text span { display: block; margin-top: 4px; font-size: 14px; line-height: 20px; color: var(--muted); }
+.pokrytie-karta-sipka { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--zelena); color: #fff; }
+.pokrytie-karta-sipka .ikona { width: 18px; height: 18px; stroke-width: 2.5; }
 
 .pokrytie-obce { margin-top: 24px; }
 .pokrytie-obce[hidden] { display: none; }
@@ -476,6 +502,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 @media (max-width: 600px) {
     .mapa-mena { display: none; }
     .mapa-spat { padding: 6px 10px; font-size: 13px; }
+    .pokrytie-volba { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+    #pokrytie.je-priblizene .pokrytie-volba, #pokrytie:not(.je-priblizene) .pokrytie-mapa { display: none; }
+    .mapa-spat-cele { display: none; }
+    .mapa-spat-mobil { display: inline; }
 }
 .kontakty + .sekcia-odkaz { display: flex; width: fit-content; margin-left: auto; margin-right: auto; }
 
