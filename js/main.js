@@ -174,11 +174,15 @@
             if (e.key === 'Escape' && mapa.classList.contains('je-priblizena')) { oddialit(); }
         });
 
+        var platno = document.createElement('canvas').getContext('2d');
+
         var stitkyObci = function () {
             Array.prototype.forEach.call(mapa.querySelectorAll('.mapa-meno:not(.mapa-meno-sused)'), function (text) {
-                var box = text.getBBox();
-                if (!box.width) { return; }
+                var styl = window.getComputedStyle(text);
                 var velkost = parseFloat(text.getAttribute('font-size'));
+                platno.font = styl.fontWeight + ' 100px ' + styl.fontFamily;
+                var sirka = platno.measureText(text.textContent).width * velkost / 100;
+                var box = { x: parseFloat(text.getAttribute('x')) - sirka / 2, width: sirka };
                 var stred = parseFloat(text.getAttribute('y')) - velkost * 0.35;
                 var stitok = text.previousElementSibling;
                 if (!stitok || stitok.getAttribute('class') !== 'mapa-meno-pozadie') {
