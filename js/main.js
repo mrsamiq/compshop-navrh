@@ -113,6 +113,7 @@
     var mapa = pokrytie ? pokrytie.querySelector('.mapa') : null;
     if (mapa) {
         var spat = pokrytie.querySelector('.mapa-spat');
+        var prepinac = pokrytie.querySelectorAll('.pokrytie-prepinac button');
         var oblasti = pokrytie.querySelectorAll('.mapa-oblast');
         var zoznamy = pokrytie.querySelectorAll('.pokrytie-obce');
         var obce = pokrytie.querySelectorAll('[data-obec]');
@@ -146,7 +147,6 @@
             if (mapa.classList.contains('je-priblizena')) { return; }
             var kluc = oblast.getAttribute('data-oblast');
             mapa.classList.add('je-priblizena');
-            pokrytie.classList.add('je-priblizene');
             stitkyObci();
             Array.prototype.forEach.call(oblasti, function (ina) {
                 ina.classList.toggle('je-vybrana', ina.getAttribute('data-oblast') === kluc);
@@ -157,13 +157,35 @@
             Array.prototype.forEach.call(zoznamy, function (zoznam) {
                 zoznam.hidden = zoznam.getAttribute('data-oblast') !== kluc;
             });
+            Array.prototype.forEach.call(prepinac, function (tlacidlo) {
+                tlacidlo.setAttribute('aria-pressed', tlacidlo.getAttribute('data-oblast') === kluc ? 'true' : 'false');
+            });
+        };
+
+        var oblastPodla = function (kluc) {
+            return mapa.querySelector('.mapa-oblast[data-oblast="' + kluc + '"]');
+        };
+
+        var prepnut = function (oblast) {
+            mapa.classList.remove('je-priblizena');
+            priblizit(oblast);
+        };
+
+        var oddialit = function () {
+            mapa.classList.remove('je-priblizena');
+            vybrana = null;
+            Array.prototype.forEach.call(oblasti, function (oblast) { oblast.classList.remove('je-vybrana'); });
+            posun(celaMapa);
+            spat.hidden = true;
+            Array.prototype.forEach.call(zoznamy, function (zoznam) { zoznam.hidden = true; });
+            Array.prototype.forEach.call(prepinac, function (tlacidlo) { tlacidlo.setAttribute('aria-pressed', 'false'); });
         };
 
         var zmenaSirky = function () {
-            if (vybrana) {
-                cancelAnimationFrame(animacia);
-                aktualna = vyrezOblasti(vybrana);
-                mapa.setAttribute('viewBox', aktualna.join(' '));
+            if (mobil.matches) {
+                prepnut(vybrana || oblastPodla(prepinac[0].getAttribute('data-oblast')));
+            } else if (vybrana) {
+                prepnut(vybrana);
             }
         };
 
@@ -173,15 +195,9 @@
             mobil.addListener(zmenaSirky);
         }
 
-        var oddialit = function () {
-            mapa.classList.remove('je-priblizena');
-            pokrytie.classList.remove('je-priblizene');
-            vybrana = null;
-            Array.prototype.forEach.call(oblasti, function (oblast) { oblast.classList.remove('je-vybrana'); });
-            posun(celaMapa);
-            spat.hidden = true;
-            Array.prototype.forEach.call(zoznamy, function (zoznam) { zoznam.hidden = true; });
-        };
+        Array.prototype.forEach.call(prepinac, function (tlacidlo) {
+            tlacidlo.addEventListener('click', function () { prepnut(oblastPodla(tlacidlo.getAttribute('data-oblast'))); });
+        });
 
         Array.prototype.forEach.call(oblasti, function (oblast) {
             oblast.addEventListener('click', function () { priblizit(oblast); });
@@ -195,7 +211,7 @@
 
         spat.addEventListener('click', oddialit);
         document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape' && mapa.classList.contains('je-priblizena')) { oddialit(); }
+            if (e.key === 'Escape' && !mobil.matches && mapa.classList.contains('je-priblizena')) { oddialit(); }
         });
 
         var platno = document.createElement('canvas').getContext('2d');
@@ -244,52 +260,8 @@
             prvok.addEventListener('blur', function () { zvyrazniObec(nazov, false); });
         });
 
-        Array.prototype.forEach.call(pokrytie.querySelectorAll('.pokrytie-karta'), function (karta) {
-            var kluc = karta.getAttribute('data-oblast');
-            var oblast = mapa.querySelector('.mapa-oblast[data-oblast="' + kluc + '"]');
-            var vyrez = oblast.getAttribute('data-vyrez').split(' ').map(Number);
-            var sirka = vyrez[2] * 0.62;
-            var vyska = sirka * 0.8;
-            var mapka = mapa.cloneNode(true);
-            mapka.setAttribute('viewBox', [vyrez[0] + (vyrez[2] - sirka) / 2, vyrez[1] + (vyrez[3] - vyska) / 2, sirka, vyska].join(' '));
-            mapka.setAttribute('class', 'mapa mapa-mini je-priblizena');
-            mapka.setAttribute('aria-hidden', 'true');
-            mapka.removeAttribute('role');
-            mapka.removeAttribute('aria-label');
-            Array.prototype.forEach.call(mapka.querySelectorAll('.mapa-oblast-mena, .mapa-oblast-stitok'), function (prvok) {
-                prvok.parentNode.removeChild(prvok);
-            });
-            var pripona = '-' + kluc;
-            Array.prototype.forEach.call(mapka.querySelectorAll('[tabindex]'), function (prvok) {
-                prvok.removeAttribute('tabindex');
-            });
-            Array.prototype.forEach.call(mapka.querySelectorAll('[id]'), function (prvok) {
-                prvok.setAttribute('id', prvok.getAttribute('id') + pripona);
-            });
-            Array.prototype.forEach.call(mapka.querySelectorAll('use'), function (prvok) {
-                prvok.setAttribute('href', prvok.getAttribute('href') + pripona);
-            });
-            Array.prototype.forEach.call(mapka.querySelectorAll('[clip-path], [mask], [fill]'), function (prvok) {
-                ['clip-path', 'mask', 'fill'].forEach(function (nazov) {
-                    var hodnota = prvok.getAttribute(nazov);
-                    if (hodnota && hodnota.indexOf('url(#') === 0) {
-                        prvok.setAttribute(nazov, hodnota.replace(')', pripona + ')'));
-                    }
-                });
-            });
-            Array.prototype.forEach.call(mapka.querySelectorAll('a'), function (odkaz) {
-                var skupina = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-                skupina.setAttribute('class', odkaz.getAttribute('class'));
-                while (odkaz.firstChild) {
-                    skupina.appendChild(odkaz.firstChild);
-                }
-                odkaz.parentNode.replaceChild(skupina, odkaz);
-            });
-            Array.prototype.forEach.call(mapka.querySelectorAll('.mapa-oblast[data-oblast="' + kluc + '"]'), function (prvok) {
-                prvok.classList.add('je-vybrana');
-            });
-            karta.querySelector('.pokrytie-karta-mapa').appendChild(mapka);
-            karta.addEventListener('click', function () { priblizit(oblast); });
-        });
+        if (mobil.matches && prepinac.length) {
+            zmenaSirky();
+        }
     }
 }());
