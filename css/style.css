@@ -867,14 +867,13 @@ a.od-cena-suma:hover { text-decoration: underline; }
     margin: 0;
     padding: 0;
     list-style: none;
-    border: 1px solid var(--border);
-    border-top: 0;
     border-radius: 0 0 16px 16px;
+    background: var(--gray);
 }
 
 .oddel-zoznam > li { display: grid; grid-template-columns: 1.5fr 1fr; gap: 6px 24px; padding: 20px 24px; }
 .oddel-zoznam > .oddel-obce { display: block; }
-.oddel-zoznam > li + li { border-top: 1px solid var(--border); }
+.oddel-zoznam > li + li { border-top: 1px solid #E2E2EC; }
 .sekcia .oddel-tema { margin: 0; font-size: 17px; line-height: 24px; font-weight: 800; }
 .oddel-opis { margin: 2px 0 0; font-size: 14px; line-height: 20px; color: var(--muted); }
 .oddel-stlpec { display: flex; flex-direction: column; align-items: flex-start; font-size: 15px; line-height: 24px; }
