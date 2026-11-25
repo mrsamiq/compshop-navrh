@@ -458,6 +458,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .mapa-susedia, .mapa-mena, .mapa-kancelaria-bod { opacity: 0; transition: opacity 0.3s; }
 .mapa-stitok { transition: opacity 0.3s; }
 .mapa.je-priblizena .mapa-oblast { cursor: default; }
+.mapa-oblast-mena { pointer-events: none; }
 .mapa.je-priblizena {
     -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
     -webkit-mask-composite: source-in;
