@@ -509,7 +509,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     .mapa-spat-cele { display: none; }
     .mapa-spat-mobil { display: inline; }
 }
-.kontakty + .sekcia-odkaz { display: flex; width: fit-content; margin-left: auto; margin-right: auto; }
 
 .sekcia h2 {
     font-size: clamp(30px, 3.2vw, 40px);
