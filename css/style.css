@@ -876,6 +876,12 @@ a.od-cena-suma:hover { text-decoration: underline; }
 .oddel-tel { font-weight: 700; }
 .oddel-mail { color: var(--zelena); font-weight: 600; }
 .oddel-tel:hover, .oddel-mail:hover { text-decoration: underline; }
+.oddel-zoznam > .oddel-predajna { grid-template-columns: 1fr 1fr; }
+.oddel-riadky { display: grid; gap: 8px; align-content: start; }
+.oddel-riadok { display: flex; gap: 10px; align-items: flex-start; margin: 0; font-size: 15px; line-height: 24px; }
+.oddel-riadok .ikona { width: 17px; height: 17px; margin-top: 3px; color: var(--zelena-tmava); }
+.oddel-adresa { font-weight: 700; }
+.oddel-adresa i { font-style: normal; white-space: nowrap; }
 
 .panel { margin-top: 20px; padding: 28px; border-radius: 24px; background: var(--gray); }
 .sekcia .panel h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; font-size: 18px; line-height: 24px; }
@@ -1168,12 +1174,16 @@ html.cookie-otvorene .na-vrch { display: none; }
 
 @media (max-width: 760px) {
     .oddel-zoznam > li { grid-template-columns: 1fr; gap: 4px; }
+    .oddel-zoznam > .oddel-predajna { grid-template-columns: 1fr; gap: 8px; }
 }
 
 @media (max-width: 600px) {
     .sekcia .oddel-hlava { padding: 12px 18px; }
     .oddel-zoznam > li { padding: 16px 18px; }
     .oddel-tel, .oddel-mail { padding: 8px 0; }
+    .oddel-predajna .oddel-riadky { gap: 0; }
+    .oddel-predajna .oddel-riadok { padding: 6px 0; }
+    .oddel-zoznam > .oddel-predajna { gap: 0; }
     .panel { padding: 22px 20px; border-radius: 22px; }
     .cookie { left: 16px; right: 16px; bottom: 88px; width: auto; }
 }
