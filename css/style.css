@@ -901,7 +901,7 @@ a.od-cena-suma:hover { text-decoration: underline; }
 .panel .kopirovat-vsetko { width: 100%; }
 
 .paticka {
-    background: var(--tmava);
+    background: var(--base);
     color: rgba(255, 255, 255, 0.82);
     font-size: 15px;
     line-height: 22px;
