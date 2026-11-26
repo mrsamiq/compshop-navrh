@@ -269,34 +269,6 @@
         }
     }
 
-    if (document.documentElement.classList.contains('animacie')) {
-        var vyskaOkna = window.innerHeight || document.documentElement.clientHeight;
-        var pozorovatelObjavenia = new IntersectionObserver(function (zaznamy) {
-            zaznamy.forEach(function (zaznam) {
-                if (zaznam.isIntersecting) {
-                    zaznam.target.classList.add('objavene');
-                    pozorovatelObjavenia.unobserve(zaznam.target);
-                }
-            });
-        }, { rootMargin: '0px 0px -8% 0px' });
-        Array.prototype.forEach.call(document.querySelectorAll('.sekcia-hlava, .dvojica-text > *, .dvojica-obrazok, .vyhody li, .pokrytie-mapa, .otazka, .kontakty > *, .sekcia-odkaz, .predajne > *, .panel, .bok-karta, .dokumenty > *, .cenniky, .poznamka, .meranie'), function (prvok) {
-            if (prvok.getBoundingClientRect().top < vyskaOkna) {
-                return;
-            }
-            var poradie = 0;
-            var surodenec = prvok.previousElementSibling;
-            while (surodenec) {
-                if (surodenec.classList.contains('objav')) {
-                    poradie++;
-                }
-                surodenec = surodenec.previousElementSibling;
-            }
-            prvok.classList.add('objav');
-            prvok.style.setProperty('--poradie', Math.min(poradie, 5));
-            pozorovatelObjavenia.observe(prvok);
-        });
-    }
-
     var volbaCookie = function () {
         var volba = '';
         try {

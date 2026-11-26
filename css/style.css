@@ -278,17 +278,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .dlazdica:hover { transform: translateY(-3px); }
 
-html.animacie .objav:not(.objavene) { opacity: 0; }
-
-html.animacie .objav.objavene {
-    animation: objav 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
-    animation-delay: calc(var(--poradie, 0) * 60ms);
-}
-
-@keyframes objav {
-    from { opacity: 0; transform: translateY(12px); }
-}
-
 .dlazdica-nazov {
     position: relative;
     z-index: 1;
@@ -361,10 +350,10 @@ html.animacie .objav.objavene {
 }
 
 .sekcia-siva .vyhody li { background: #fff; }
-.vyhody li { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.vyhody li { transition: transform 0.2s ease; }
 
 @media (hover: hover) {
-    .vyhody li:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(45, 66, 85, 0.1); }
+    .vyhody li:hover { transform: scale(1.03); }
     .subory a:hover { background: #fff; box-shadow: 0 6px 18px rgba(45, 66, 85, 0.1); }
 }
 
@@ -619,7 +608,7 @@ main::after {
 }
 
 .otazka[open] summary::after { margin-top: 4px; transform: rotate(-135deg); }
-html.animacie .otazka[open] p { animation: odpoved 0.3s ease; }
+.otazka[open] p { animation: odpoved 0.3s ease; }
 
 @keyframes odpoved {
     from { opacity: 0; transform: translateY(-6px); }
@@ -1262,5 +1251,6 @@ html.cookie-otvorene .na-vrch { display: none; }
     .dlazdica { transition: none; }
     .dlazdica:hover { transform: none; }
     .vyhody li, .subory a, .otazka summary::after { transition: none; }
+    .otazka[open] p { animation: none; }
     .vyhody li:hover { transform: none; }
 }
