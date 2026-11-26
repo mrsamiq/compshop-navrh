@@ -260,7 +260,11 @@
             prvok.addEventListener('blur', function () { zvyrazniObec(nazov, false); });
         });
 
-        if (mobil.matches && prepinac.length) {
+        var hladana = /[?&]oblast=([a-z-]+)/.exec(window.location.search);
+        var zvolena = hladana ? oblastPodla(hladana[1]) : null;
+        if (zvolena) {
+            priblizit(zvolena);
+        } else if (mobil.matches && prepinac.length) {
             zmenaSirky();
         }
     }
