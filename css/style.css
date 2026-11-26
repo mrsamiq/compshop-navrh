@@ -640,13 +640,16 @@ main::after {
 }
 
 .kontakt-udaje { font-size: 15px; line-height: 22px; }
-.sekcia .kontakt-udaje h3 { margin: 0 0 14px; font-size: 21px; line-height: 26px; }
+.sekcia .kontakt-udaje h3, .sekcia .kontakt-udaje h2 { margin: 0 0 14px; font-size: 21px; line-height: 26px; }
 .kontakt-udaje p { margin: 0 0 10px; font-size: 15px; line-height: 22px; color: var(--muted); }
 .kontakt-udaje span { display: block; color: var(--muted); }
 .kontakt-spojenie { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
 .kontakt-udaje i { font-style: normal; white-space: nowrap; }
 .kontakt-udaje .ikona { width: 17px; height: 17px; margin-right: 8px; vertical-align: -3px; color: var(--zelena-tmava); }
 .kontakt-spojenie .ikona { margin-right: 6px; }
+.kontakt-obce { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+.sekcia .kontakt-obce h3 { margin: 0 0 4px; font-size: 15px; line-height: 22px; font-weight: 800; }
+.kontakt-obce p { margin: 0; font-size: 14px; line-height: 21px; }
 .kontakt-navigacia { align-self: flex-start; margin-top: auto; padding: 11px 20px; font-size: 15px; }
 .kontakt-navigacia .ikona { width: 18px; height: 18px; }
 
@@ -875,17 +878,7 @@ a.od-cena-suma:hover { text-decoration: underline; }
 .oddel-tel { font-weight: 700; }
 .oddel-mail { color: var(--zelena); font-weight: 600; }
 .oddel-tel:hover, .oddel-mail:hover { text-decoration: underline; }
-.predajne { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 20px; }
-.predajne .oddel { display: flex; flex-direction: column; margin: 0; }
-.oddel-telo { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 20px 22px 22px; border-radius: 0 0 16px 16px; background: var(--gray); }
-.oddel-riadok { display: flex; gap: 10px; align-items: flex-start; margin: 0; font-size: 15px; line-height: 24px; }
-.oddel-riadok .ikona { width: 17px; height: 17px; margin-top: 3px; color: var(--zelena-tmava); }
-.oddel-adresa { font-weight: 700; }
-.oddel-adresa i { font-style: normal; white-space: nowrap; }
-.oddel-mapa { margin-top: 8px; padding: 11px 20px; font-size: 15px; line-height: 20px; }
-.oddel-mapa .ikona { width: 17px; height: 17px; }
-.sekcia .oddel-obce-nadpis { align-self: stretch; margin: 8px 0 0; padding-top: 16px; border-top: 1px solid #E2E2EC; font-size: 15px; line-height: 22px; font-weight: 800; }
-.oddel-obce-text { margin: 0; font-size: 14px; line-height: 21px; color: var(--muted); }
+.predajne { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
 
 .panel { margin-top: 20px; padding: 28px; border-radius: 24px; background: var(--gray); }
 .sekcia .panel h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 12px; font-size: 18px; line-height: 24px; }
@@ -1184,8 +1177,6 @@ html.cookie-otvorene .na-vrch { display: none; }
     .sekcia .oddel-hlava { padding: 12px 18px; }
     .oddel-zoznam > li { padding: 16px 18px; }
     .oddel-tel, .oddel-mail { padding: 8px 0; }
-    .oddel-telo { gap: 0; padding: 14px 18px 20px; }
-    .oddel-telo .oddel-riadok { padding: 6px 0; }
     .panel { padding: 22px 20px; border-radius: 22px; }
     .cookie { left: 16px; right: 16px; bottom: 88px; width: auto; }
 }
