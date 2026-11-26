@@ -278,6 +278,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .dlazdica:hover { transform: translateY(-3px); }
 
+html.animacie .objav:not(.objavene) { opacity: 0; }
+
+html.animacie .objav.objavene {
+    animation: objav 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+    animation-delay: calc(var(--poradie, 0) * 90ms);
+}
+
+html.animacie .dlazdica { animation: objav 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) backwards; }
+html.animacie .dlazdica:nth-child(2) { animation-delay: 0.08s; }
+html.animacie .dlazdica:nth-child(3) { animation-delay: 0.16s; }
+html.animacie .dlazdica:nth-child(4) { animation-delay: 0.24s; }
+
+@keyframes objav {
+    from { opacity: 0; transform: translateY(24px); }
+}
+
 .dlazdica-nazov {
     position: relative;
     z-index: 1;
@@ -350,6 +366,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .sekcia-siva .vyhody li { background: #fff; }
+.vyhody li { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+
+@media (hover: hover) {
+    .vyhody li:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(45, 66, 85, 0.1); }
+    .subory a:hover { background: #fff; box-shadow: 0 6px 18px rgba(45, 66, 85, 0.1); }
+}
 
 .vyhody strong {
     display: block;
@@ -552,6 +574,64 @@ main::after {
     main::before, main::after { display: none; }
 }
 
+.otazky { display: grid; gap: 12px; }
+.otazka { border: 1px solid var(--border); border-radius: 16px; background: #fff; }
+
+.otazka summary {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 22px;
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 600;
+    color: var(--base);
+    cursor: pointer;
+    list-style: none;
+}
+
+.otazka summary::-webkit-details-marker { display: none; }
+.otazka-text { flex: 1; }
+
+.otazka-ikona {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: -8px 0;
+    border-radius: 12px;
+    background: var(--tint-ruzova);
+    color: var(--cyan);
+}
+
+.otazka-ikona .ikona { width: 20px; height: 20px; }
+.otazka:nth-child(4n+2) .otazka-ikona { background: var(--tint-modra); color: #0090BE; }
+.otazka:nth-child(4n+3) .otazka-ikona { background: var(--tint-zelena); color: var(--zelena-tmava); }
+.otazka:nth-child(4n) .otazka-ikona { background: #E9ECF4; color: var(--blue-dark); }
+
+.otazka summary::after {
+    content: '';
+    flex: none;
+    width: 9px;
+    height: 9px;
+    margin-top: -4px;
+    border-right: 2px solid var(--zelena);
+    border-bottom: 2px solid var(--zelena);
+    transform: rotate(45deg);
+    transition: transform 0.25s ease, margin-top 0.25s ease;
+}
+
+.otazka[open] summary::after { margin-top: 4px; transform: rotate(-135deg); }
+html.animacie .otazka[open] p { animation: odpoved 0.3s ease; }
+
+@keyframes odpoved {
+    from { opacity: 0; transform: translateY(-6px); }
+}
+.otazka p { margin: 0; padding: 0 22px 20px 78px; font-size: 16px; line-height: 25px; }
+.otazka a { color: var(--zelena); font-weight: 600; }
+
 .dokumenty {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -575,10 +655,12 @@ main::after {
     align-items: center;
     gap: 14px;
     padding: 16px 18px;
+    border-radius: 16px;
     font-size: 16px;
     line-height: 22px;
     font-weight: 600;
     text-decoration: none;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .subory a > span { flex: 1; }
@@ -1175,6 +1257,8 @@ html.cookie-otvorene .na-vrch { display: none; }
     .panel { padding: 22px 20px; border-radius: 22px; }
     .predajne .kontakt-pobocka { padding: 22px 20px; border-radius: 22px; }
     .cookie { left: 16px; right: 16px; bottom: 88px; width: auto; }
+    .otazka summary { gap: 14px; padding: 16px 18px; }
+    .otazka p { padding: 0 18px 18px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1182,4 +1266,6 @@ html.cookie-otvorene .na-vrch { display: none; }
     .na-vrch { transition: none; }
     .dlazdica { transition: none; }
     .dlazdica:hover { transform: none; }
+    .vyhody li, .subory a, .otazka summary::after { transition: none; }
+    .vyhody li:hover { transform: none; }
 }
