@@ -648,8 +648,12 @@ main::after {
 .kontakt-udaje .ikona { width: 17px; height: 17px; margin-right: 8px; vertical-align: -3px; color: var(--zelena-tmava); }
 .kontakt-spojenie .ikona { margin-right: 6px; }
 .kontakt-obce { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
-.sekcia .kontakt-obce h3 { margin: 0 0 10px; font-size: 15px; line-height: 22px; font-weight: 800; }
-.kontakt-udaje .kontakt-pokrytie { display: inline-flex; }
+.kontakt-udaje .kontakt-pokrytie { display: flex; align-items: center; gap: 12px; padding: 12px 16px 12px 12px; border-radius: 14px; background: #fff; font-weight: 600; }
+.kontakt-udaje .kontakt-pokrytie:hover { color: var(--base); box-shadow: 0 4px 14px rgba(45, 66, 85, 0.08); }
+.kontakt-udaje .kontakt-pokrytie-znak { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--tint-zelena); }
+.kontakt-udaje .kontakt-pokrytie .ikona { width: 18px; height: 18px; margin: 0; vertical-align: 0; }
+.kontakt-udaje .kontakt-pokrytie-text { flex: 1; color: var(--base); font-size: 15px; line-height: 20px; }
+.kontakt-pokrytie-text em { display: block; font-style: normal; font-size: 14px; color: var(--zelena-tmava); }
 .kontakt-navigacia { align-self: flex-start; margin-top: auto; padding: 11px 20px; font-size: 15px; }
 .kontakt-navigacia .ikona { width: 18px; height: 18px; }
 
