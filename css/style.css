@@ -309,19 +309,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     white-space: nowrap;
 }
 
-.dlazdica-internet { background: linear-gradient(170deg, var(--cyan) 45%, #DE5CC6); }
+.dlazdica-internet { background: linear-gradient(170deg, var(--cyan) 45%, #D94CBF); }
 .dlazdica-internet .dlazdica-tlacidlo { color: #A60086; }
 .dlazdica-internet .dlazdica-ikona { fill: #A60086; }
 
-.dlazdica-televizia { background: linear-gradient(170deg, #0099D0, var(--blue) 45%, #62CDF0); }
+.dlazdica-televizia { background: linear-gradient(170deg, #0099D0, var(--blue) 45%, #51C7ED); }
 .dlazdica-televizia .dlazdica-tlacidlo { color: #0081AE; }
 .dlazdica-televizia .dlazdica-ikona { fill: #0090BE; }
 
-.dlazdica-servis { background: linear-gradient(170deg, #6FA800, var(--green) 45%, #A6D654); }
+.dlazdica-servis { background: linear-gradient(170deg, #6FA800, var(--green) 45%, #9ED146); }
 .dlazdica-servis .dlazdica-tlacidlo { color: #5A8A00; }
 .dlazdica-servis .dlazdica-ikona { fill: #689C00; }
 
-.dlazdica-dokumenty { background: linear-gradient(170deg, #1B3380, var(--blue-dark) 45%, #4D68BE); }
+.dlazdica-dokumenty { background: linear-gradient(170deg, #1B3380, var(--blue-dark) 45%, #4661B7); }
 .dlazdica-dokumenty .dlazdica-tlacidlo { color: var(--blue-dark); }
 .dlazdica-dokumenty .dlazdica-ikona { fill: #18307A; }
 
