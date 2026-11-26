@@ -342,18 +342,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .vyhody li {
+    position: relative;
+    z-index: 0;
     padding: 24px;
-    background: var(--gray);
     border-radius: 20px;
     font-size: 15px;
     line-height: 22px;
 }
 
-.sekcia-siva .vyhody li { background: #fff; }
-.vyhody li { transition: transform 0.2s ease; }
+.vyhody li::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--gray);
+    transition: transform 0.2s ease;
+}
+
+.sekcia-siva .vyhody li::before { background: #fff; }
 
 @media (hover: hover) {
-    .vyhody li:hover { transform: scale(1.03); }
+    .vyhody li:hover::before { transform: scale(1.03); }
     .subory a:hover { background: #fff; box-shadow: 0 6px 18px rgba(45, 66, 85, 0.1); }
 }
 
@@ -1250,7 +1260,7 @@ html.cookie-otvorene .na-vrch { display: none; }
     .na-vrch { transition: none; }
     .dlazdica { transition: none; }
     .dlazdica:hover { transform: none; }
-    .vyhody li, .subory a, .otazka summary::after { transition: none; }
+    .vyhody li::before, .subory a, .otazka summary::after { transition: none; }
     .otazka[open] p { animation: none; }
-    .vyhody li:hover { transform: none; }
+    .vyhody li:hover::before { transform: none; }
 }
