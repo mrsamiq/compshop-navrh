@@ -269,28 +269,54 @@
         }
     }
 
-    var cookie = document.querySelector('.cookie');
-    if (cookie && !/ochrana-sukromia/.test(window.location.pathname)) {
-        var potvrdene = '';
+    var volbaCookie = function () {
+        var volba = '';
         try {
-            potvrdene = localStorage.getItem('compshop-cookie') || '';
+            volba = localStorage.getItem('compshop-cookie') || '';
         } catch (chybaPamate) {
-            potvrdene = '';
+            volba = '';
         }
-        if (!potvrdene) {
+        return volba === 'ok' ? 'ano' : volba;
+    };
+
+    var meranie = document.querySelector('.meranie[data-src]');
+    var nacitajMeranie = function () {
+        if (!meranie || meranie.querySelector('iframe')) { return; }
+        var ramec = document.createElement('iframe');
+        ramec.src = meranie.getAttribute('data-src');
+        ramec.title = 'Meranie rýchlosti internetu';
+        meranie.innerHTML = '';
+        meranie.appendChild(ramec);
+    };
+    if (meranie) {
+        meranie.querySelector('.meranie-spustit').addEventListener('click', nacitajMeranie);
+        if (volbaCookie() === 'ano') { nacitajMeranie(); }
+    }
+
+    var cookie = document.querySelector('.cookie');
+    if (cookie) {
+        var ukazCookie = function () {
             cookie.hidden = false;
             document.documentElement.classList.add('cookie-otvorene');
-            Array.prototype.forEach.call(cookie.querySelectorAll('.cookie-zavriet, .cookie-suhlas'), function (tlacidlo) {
-                tlacidlo.addEventListener('click', function () {
-                    try {
-                        localStorage.setItem('compshop-cookie', 'ok');
-                    } catch (chybaPamate) {
-                        potvrdene = '';
-                    }
-                    cookie.hidden = true;
-                    document.documentElement.classList.remove('cookie-otvorene');
-                });
+        };
+        Array.prototype.forEach.call(cookie.querySelectorAll('[data-volba]'), function (tlacidlo) {
+            tlacidlo.addEventListener('click', function () {
+                var volba = tlacidlo.getAttribute('data-volba');
+                try {
+                    localStorage.setItem('compshop-cookie', volba);
+                } catch (chybaPamate) {
+                    volba = tlacidlo.getAttribute('data-volba');
+                }
+                cookie.hidden = true;
+                document.documentElement.classList.remove('cookie-otvorene');
+                if (volba === 'ano') { nacitajMeranie(); }
             });
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('.cookie-zmenit'), function (tlacidlo) {
+            tlacidlo.addEventListener('click', ukazCookie);
+        });
+        if (!volbaCookie() && !/ochrana-sukromia/.test(window.location.pathname)) {
+            ukazCookie();
         }
     }
 }());
