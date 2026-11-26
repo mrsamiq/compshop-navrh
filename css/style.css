@@ -255,8 +255,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .dlazdice {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
     text-align: left;
 }
 
@@ -267,8 +267,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-height: 300px;
-    padding: 34px 36px 32px;
+    min-height: 400px;
+    padding: 28px 26px 26px;
     border-radius: 24px;
     color: #fff;
     text-decoration: none;
@@ -277,37 +277,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .dlazdica:hover { transform: translateY(-3px); }
 
-.dlazdica-text { position: relative; z-index: 1; display: block; max-width: 320px; }
-
 .dlazdica-nazov {
+    position: relative;
+    z-index: 1;
     display: block;
-    font-size: 36px;
+    font-size: 30px;
     line-height: 1.12;
     font-weight: 800;
     letter-spacing: -0.015em;
 }
 
-.dlazdica-popis {
-    display: block;
-    margin-top: 10px;
-    font-size: 17px;
-    line-height: 25px;
-    font-weight: 500;
-}
-
 .dlazdica-ikona {
     position: absolute;
-    right: -40px;
-    bottom: -70px;
-    width: 330px;
-    height: 330px;
+    right: -70px;
+    bottom: 40px;
+    width: 300px;
+    height: 300px;
 }
 
 .dlazdica-tlacidlo {
     position: relative;
     z-index: 1;
     align-self: flex-start;
-    margin-top: 24px;
     padding: 11px 20px;
     border-radius: 100px;
     background: #fff;
@@ -334,10 +325,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .dlazdica-dokumenty .dlazdica-ikona { fill: #18307A; }
 
 @media (max-width: 1180px) {
-    .dlazdica { padding: 30px 28px 28px; }
-    .dlazdica-text { max-width: 280px; }
-    .dlazdica-nazov { font-size: 30px; }
-    .dlazdica-ikona { width: 270px; height: 270px; right: -46px; bottom: -60px; }
+    .dlazdica { padding: 24px 22px 22px; }
+    .dlazdica-nazov { font-size: 26px; }
     .dlazdica-tlacidlo { padding: 10px 16px; font-size: 15px; }
 }
 
@@ -989,10 +978,9 @@ a.od-cena-suma:hover { text-decoration: underline; }
 @media (max-width: 1000px) {
     .paticka-stlpce { grid-template-columns: 1fr 1fr; }
     .hero-riadok { flex-direction: column; align-items: flex-start; gap: 6px; }
-    .dlazdica-text { max-width: 230px; }
-    .dlazdica-nazov { font-size: 26px; }
-    .dlazdica-popis { font-size: 16px; line-height: 23px; }
-    .dlazdica-ikona { width: 220px; height: 220px; right: -50px; bottom: -50px; }
+    .dlazdice { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .dlazdica { min-height: 300px; }
+    .dlazdica-ikona { width: 220px; height: 220px; right: -50px; bottom: 50px; }
 }
 
 @media (max-width: 760px) {
@@ -1024,8 +1012,8 @@ a.od-cena-suma:hover { text-decoration: underline; }
         white-space: nowrap;
     }
     .dlazdice { grid-template-columns: 1fr; gap: 12px; }
-    .dlazdica { min-height: 210px; padding: 24px 22px 22px; border-radius: 22px; }
-    .dlazdica-text { max-width: 66%; }
+    .dlazdica { min-height: 190px; padding: 24px 22px 22px; border-radius: 22px; }
+    .dlazdica-nazov { max-width: 62%; }
     .dlazdica-ikona { width: 190px; height: 190px; right: -36px; bottom: -40px; }
     .dlazdica-tlacidlo { padding: 9px 16px; }
     .sekcia { padding: 64px 0; }
