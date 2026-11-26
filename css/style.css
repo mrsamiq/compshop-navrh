@@ -1064,6 +1064,60 @@ a.od-cena-suma:hover { text-decoration: underline; }
 
 .na-vrch.je-videt { opacity: 1; visibility: visible; transform: none; }
 .na-vrch:hover { background: var(--tint-zelena); }
+html.cookie-otvorene .na-vrch { display: none; }
+
+.cookie {
+    position: fixed;
+    z-index: 42;
+    left: 20px;
+    bottom: 20px;
+    width: 340px;
+    padding: 16px 18px 18px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: #fff;
+    color: var(--base);
+    box-shadow: 0 14px 32px rgba(45, 66, 85, 0.14);
+}
+
+.cookie-hlava { display: flex; align-items: center; gap: 10px; padding-right: 28px; margin-bottom: 8px; }
+
+.cookie-znak {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--tint-zelena);
+    color: var(--zelena-tmava);
+}
+
+.cookie-znak .ikona { width: 20px; height: 20px; }
+.cookie strong { font-size: 16px; line-height: 22px; font-weight: 800; }
+.cookie p { margin: 0; font-size: 14px; line-height: 21px; }
+.cookie a { color: var(--zelena-tmava); font-weight: 700; }
+.cookie-suhlas { margin-top: 14px; padding: 10px 24px; font-size: 15px; line-height: 20px; background: var(--zelena); color: #fff; }
+.cookie-suhlas:hover { background: var(--zelena-tmava); }
+
+.cookie-zavriet {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: none;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.cookie-zavriet:hover { background: var(--gray); color: var(--base); }
+.cookie-zavriet .ikona { width: 18px; height: 18px; }
 .na-vrch .ikona { width: 24px; height: 24px; stroke-width: 2.5; }
 
 @media (max-width: 600px) {
@@ -1121,6 +1175,7 @@ a.od-cena-suma:hover { text-decoration: underline; }
     .oddel-zoznam > li { padding: 16px 18px; }
     .oddel-tel, .oddel-mail { padding: 8px 0; }
     .panel { padding: 22px 20px; border-radius: 22px; }
+    .cookie { left: 16px; right: 16px; bottom: 88px; width: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {

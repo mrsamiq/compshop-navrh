@@ -264,4 +264,29 @@
             zmenaSirky();
         }
     }
+
+    var cookie = document.querySelector('.cookie');
+    if (cookie && !/ochrana-sukromia/.test(window.location.pathname)) {
+        var potvrdene = '';
+        try {
+            potvrdene = localStorage.getItem('compshop-cookie') || '';
+        } catch (chybaPamate) {
+            potvrdene = '';
+        }
+        if (!potvrdene) {
+            cookie.hidden = false;
+            document.documentElement.classList.add('cookie-otvorene');
+            Array.prototype.forEach.call(cookie.querySelectorAll('.cookie-zavriet, .cookie-suhlas'), function (tlacidlo) {
+                tlacidlo.addEventListener('click', function () {
+                    try {
+                        localStorage.setItem('compshop-cookie', 'ok');
+                    } catch (chybaPamate) {
+                        potvrdene = '';
+                    }
+                    cookie.hidden = true;
+                    document.documentElement.classList.remove('cookie-otvorene');
+                });
+            });
+        }
+    }
 }());
