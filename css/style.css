@@ -100,6 +100,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .horny-riadok .wrap > a + a::before { content: ""; width: 6px; height: 6px; margin: 0 16px; border-radius: 50%; background: var(--zelena); }
 .horny-riadok .wrap > .hr-vpravo::before { display: none; }
 .hr-callcentrum { font-weight: 700; }
+.hr-callcentrum .ikona { display: none; width: 16px; height: 16px; margin-right: 7px; color: var(--zelena); }
 .hr-vpravo { margin-left: auto; }
 
 .hlavicka {
@@ -990,6 +991,7 @@ a.od-cena-suma:hover { text-decoration: underline; }
 @media (max-width: 760px) {
     .horny-riadok .hr-mail { display: none; }
     .horny-riadok .wrap > .hr-callcentrum::before { display: none; }
+    .hr-callcentrum .ikona { display: block; }
 }
 
 @media (max-width: 600px) {
