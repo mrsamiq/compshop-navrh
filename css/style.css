@@ -1208,7 +1208,7 @@ html.cookie-otvorene .na-vrch { display: none; }
     .sekcia .dvojica-text h2 { font-size: 34px; }
     .od-cena-suma { font-size: 44px; }
     .dvojica-kontakt .od-cena { flex-direction: column; align-items: flex-start; gap: 2px; }
-    .dvojica-kontakt .od-cena-suma { font-size: min(40px, 10.5vw); }
+    .dvojica-kontakt .od-cena-suma { font-size: min(40px, calc((100vw - 32px) / 10)); }
     .dvojica-text .btn { width: 100%; }
 }
 
