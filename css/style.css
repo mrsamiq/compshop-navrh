@@ -235,6 +235,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     background: #fff;
     color: var(--base);
     cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .menu-had { width: 32px; height: 32px; transition: transform 800ms; }
@@ -1051,7 +1052,10 @@ a.od-cena-suma:hover { text-decoration: underline; }
 @media (max-width: 1180px) {
     .menu-tlacidlo { display: flex; }
     .menu {
-        display: none;
+        display: flex;
+        visibility: hidden;
+        clip-path: inset(0 0 100% 0);
+        transition: clip-path 0.35s ease, visibility 0s linear 0.35s;
         position: absolute;
         top: 100%;
         left: 0;
@@ -1065,7 +1069,9 @@ a.od-cena-suma:hover { text-decoration: underline; }
         box-shadow: 0 16px 30px rgba(45, 66, 85, 0.08);
         font-size: 17px;
     }
-    .menu.je-otvorene { display: flex; }
+    .menu.je-otvorene { visibility: visible; clip-path: inset(0 0 -60px 0); transition: clip-path 0.35s ease; }
+    .menu > * { transition: opacity 0.3s ease, transform 0.35s ease; }
+    .menu:not(.je-otvorene) > * { opacity: 0; transform: translateY(-12px); }
     .menu a:not(.btn) { padding: 14px 0; border-bottom: 1px solid var(--border); }
     .menu .btn { margin-top: 16px; }
 }
@@ -1269,4 +1275,5 @@ html.cookie-otvorene .na-vrch { display: none; }
     .otazka[open] p { animation: none; }
     .vyhody li:hover::before { transform: none; }
     .menu-had, .menu-had path { transition: none; }
+    .menu, .menu.je-otvorene, .menu > * { transition: none; }
 }
