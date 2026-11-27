@@ -237,6 +237,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     cursor: pointer;
 }
 
+.menu-had { width: 32px; height: 32px; transition: transform 800ms; }
+.menu-had path { fill: none; stroke: currentColor; stroke-width: 5.2; stroke-linecap: round; transition: stroke-dasharray 800ms, stroke-dashoffset 800ms; }
+.menu-had-hore { stroke-dasharray: 40 160; }
+.menu-had .menu-had-stred { stroke-dasharray: 40 142; transform-origin: 50%; transition: transform 800ms; }
+.menu-had .menu-had-dole { stroke-dasharray: 40 85; transform-origin: 50%; transition: transform 800ms, stroke-dashoffset 800ms; }
+.menu-tlacidlo[aria-expanded="true"] .menu-had { transform: rotate(45deg); }
+.menu-tlacidlo[aria-expanded="true"] .menu-had-hore, .menu-tlacidlo[aria-expanded="true"] .menu-had-dole { stroke-dashoffset: -64px; }
+.menu-tlacidlo[aria-expanded="true"] .menu-had-stred { transform: rotate(90deg); }
+
 .hero { padding: 28px 0 80px; }
 
 .hero-riadok {
@@ -1259,4 +1268,5 @@ html.cookie-otvorene .na-vrch { display: none; }
     .vyhody li::before, .subory a, .otazka summary::after { transition: none; }
     .otazka[open] p { animation: none; }
     .vyhody li:hover::before { transform: none; }
+    .menu-had, .menu-had path { transition: none; }
 }
