@@ -818,6 +818,15 @@ a.od-cena-suma:hover { text-decoration: underline; }
 .sekcia .podstranka-text h3 { margin: 28px 0 10px; font-size: 20px; line-height: 26px; }
 .podstranka-text p { margin: 0 0 14px; max-width: 720px; font-size: 17px; line-height: 28px; }
 .podstranka-text a { color: var(--zelena); font-weight: 600; }
+.sekcia .podstranka-text .onas-nadpis { display: flex; align-items: center; gap: 14px; }
+.onas-znak { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--tint-ruzova); color: var(--cyan); }
+.onas-znak .ikona { width: 20px; height: 20px; }
+.onas-nadpis:nth-of-type(2) .onas-znak, .onas-nadpis:nth-of-type(5) .onas-znak { background: var(--tint-modra); color: #0090BE; }
+.onas-nadpis:nth-of-type(3) .onas-znak { background: var(--tint-zelena); color: var(--zelena-tmava); }
+.onas-nadpis:nth-of-type(4) .onas-znak { background: #E9ECF4; color: var(--blue-dark); }
+.podstranka-text .onas-citat { display: flex; align-items: center; gap: 16px; margin: 32px 0; padding: 22px 26px; border-radius: 24px; background: var(--tint-ruzova); font-size: 21px; line-height: 29px; font-weight: 700; color: var(--base); }
+.onas-citat .onas-znak { width: 48px; height: 48px; border-radius: 14px; background: #fff; }
+.onas-citat .onas-znak .ikona { width: 24px; height: 24px; }
 
 .poznamka {
     max-width: 720px;
@@ -1252,6 +1261,7 @@ html.cookie-otvorene .na-vrch { display: none; }
 @media (max-width: 600px) {
     .sekcia .podstranka-text h2 { margin-top: 36px; font-size: 24px; line-height: 30px; }
     .podstranka-text p { font-size: 16px; line-height: 26px; }
+    .podstranka-text .onas-citat { gap: 14px; padding: 18px 20px; font-size: 18px; line-height: 25px; }
     .bok-karta { padding: 26px 24px 30px; border-radius: 22px; }
 }
 
