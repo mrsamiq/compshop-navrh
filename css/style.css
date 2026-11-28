@@ -630,9 +630,16 @@ main::after {
 
 .otazka[open] summary::after { margin-top: 4px; transform: rotate(-135deg); }
 .otazka[open] p { animation: odpoved 0.3s ease; }
+.otazka.hybe { overflow: hidden; }
+.otazka.zatvara p { animation: odpoved-zatvor 0.25s ease forwards; }
+.otazka.zatvara summary::after { margin-top: -4px; transform: rotate(45deg); }
 
 @keyframes odpoved {
     from { opacity: 0; transform: translateY(-6px); }
+}
+
+@keyframes odpoved-zatvor {
+    to { opacity: 0; transform: translateY(-6px); }
 }
 .otazka p { margin: 0; padding: 0 22px 20px 66px; font-size: 16px; line-height: 25px; }
 .otazka a { color: var(--zelena); font-weight: 600; }

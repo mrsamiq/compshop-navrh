@@ -319,4 +319,31 @@
             ukazCookie();
         }
     }
+
+    var pokojnyPohyb = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    Array.prototype.forEach.call(document.querySelectorAll('.otazka'), function (otazka) {
+        var suhrn = otazka.querySelector('summary');
+        suhrn.addEventListener('click', function (e) {
+            if ((pokojnyPohyb && pokojnyPohyb.matches) || !otazka.animate) { return; }
+            e.preventDefault();
+            if (otazka.classList.contains('hybe')) { return; }
+            var okraj = otazka.offsetHeight - otazka.clientHeight;
+            var odVysky = otazka.offsetHeight;
+            var zatvorit = otazka.open;
+            otazka.classList.add('hybe');
+            if (zatvorit) {
+                otazka.classList.add('zatvara');
+            } else {
+                otazka.open = true;
+            }
+            var doVysky = zatvorit ? suhrn.offsetHeight + okraj : otazka.offsetHeight;
+            var pohyb = otazka.animate([{ height: odVysky + 'px' }, { height: doVysky + 'px' }], { duration: 300, easing: 'ease' });
+            pohyb.onfinish = function () {
+                if (zatvorit) {
+                    otazka.open = false;
+                }
+                otazka.classList.remove('hybe', 'zatvara');
+            };
+        });
+    });
 }());
